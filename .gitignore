@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables / Secrets
+.env
+
+# macOS specific files
+.DS_Store
+
+# IDE - VS Code settings
+.vscode/
