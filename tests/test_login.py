@@ -80,5 +80,80 @@ def test_login_with_empty_password(page):
         "Please enter your password"
     )
 
+def test_forgot_password_link(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
 
-    
+    login_page.enter_email(HUDL_EMAIL)
+    login_page.click_continue()
+
+    login_page.click_forgot_password()
+
+    expect(page).to_have_url(
+        re.compile(r"https://identity\.hudl\.com/u/reset-password/request")
+    )
+    expect(page.get_by_role("heading", name="Reset Password")).to_be_visible()
+
+def test_forgot_password_link_sends_email(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
+
+    login_page.enter_email(HUDL_EMAIL)
+    login_page.click_continue()
+
+    login_page.click_forgot_password()
+    login_page.click_continue()
+
+    expect(page.get_by_role("heading", name="Check your email")).to_be_visible()
+
+def test_password_visibility_toggle(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
+
+    login_page.enter_email(HUDL_EMAIL)
+    login_page.click_continue()
+
+    password_input = page.locator('[data-qa-id="password-input-input"]')
+    toggle_button = page.locator('[data-qa-id="toggle-password-visibility"]')
+
+    password_input.fill(HUDL_PASSWORD)
+    expect(password_input).to_have_attribute("type", "password")
+
+    toggle_button.click()
+    expect(password_input).to_have_attribute("type", "text")
+
+    toggle_button.click()
+    expect(password_input).to_have_attribute("type", "password")
+
+
+def test_navigate_back_to_email_input(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
+
+    login_page.enter_email(HUDL_EMAIL)
+    login_page.click_continue()
+
+    back_button = page.locator('[data-qa-id="edit-identifier"]')
+    back_button.click()
+
+    expect(page).to_have_url(
+        re.compile(r"https://identity\.hudl\.com/u/login/identifier")
+    )
+
+def test_navigate_back_to_email_input_and_change_email(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
+
+    login_page.enter_email(HUDL_EMAIL)
+    login_page.click_continue()
+
+    back_button = page.locator('[data-qa-id="edit-identifier"]')
+    back_button.click()
+
+    new_email = "newemail@example.com"
+    login_page.enter_email(new_email)
+    login_page.click_continue()
+
+    expect(page).to_have_url(
+        re.compile(r"https://identity.hudl.com/u/login/password")
+    )
