@@ -42,6 +42,19 @@ def test_invalid_email_format(page):
         "Enter a valid email."
     )
 
+def test_uppercase_email_format(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
+
+    login_page.enter_email(HUDL_EMAIL.upper())
+    login_page.click_continue() 
+    login_page.enter_password(HUDL_PASSWORD)
+    login_page.click_continue()     
+
+    expect(page).to_have_url(
+        re.compile(r"https://www\.hudl\.com/home")
+    )
+
 def test_login_with_invalid_credentials(page):
     login_page = LoginPage(page)
     login_page.navigate_to_login_page()
@@ -155,5 +168,5 @@ def test_navigate_back_to_email_input_and_change_email(page):
     login_page.click_continue()
 
     expect(page).to_have_url(
-        re.compile(r"https://identity.hudl.com/u/login/password")
+        re.compile(r"https://identity\.hudl\.com/u/login/password")
     )
