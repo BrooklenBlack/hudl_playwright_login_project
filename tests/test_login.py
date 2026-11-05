@@ -59,7 +59,7 @@ def test_login_with_invalid_credentials(page):
     login_page = LoginPage(page)
     login_page.navigate_to_login_page()
 
-    login_page.enter_email("fakeemail@example.com")
+    login_page.enter_email("fakeemail4@example.com")
     login_page.click_continue()
     login_page.enter_password("password")
     login_page.click_continue()
