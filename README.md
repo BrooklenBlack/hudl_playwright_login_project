@@ -151,5 +151,5 @@ python -m pytest
 - Credentials are handled through environment variables and excluded from version control.
 - The tests use Playwright locators based on roles and Hudl's `data-qa-id` attributes.
 - The project uses pytest-repeat to run tests multiple times and evaluate test repeatability.
-- The tests interact with Hudl's live website
+- The tests interact with Hudl's live website.
 - Some authentication tests interact with real login and password recovery workflows. Repeated login attempts may trigger Hudl's security restrictions such as temporarily blocking your account.
