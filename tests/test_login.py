@@ -31,17 +31,6 @@ def test_valid_login(page):
         re.compile(r"https://www\.hudl\.com/home")
     )
 
-def test_invalid_email_format(page):
-    login_page = LoginPage(page)
-    login_page.navigate_to_login_page()
-
-    login_page.enter_email("fakeemail")
-    login_page.click_continue()
-
-    expect(page.locator('[data-qa-id="email-input-help-text"]')).to_have_text(
-        "Enter a valid email."
-    )
-
 def test_uppercase_email_format(page):
     login_page = LoginPage(page)
     login_page.navigate_to_login_page()
@@ -54,6 +43,18 @@ def test_uppercase_email_format(page):
     expect(page).to_have_url(
         re.compile(r"https://www\.hudl\.com/home")
     )
+
+def test_invalid_email_format(page):
+    login_page = LoginPage(page)
+    login_page.navigate_to_login_page()
+
+    login_page.enter_email("fakeemail")
+    login_page.click_continue()
+
+    expect(page.locator('[data-qa-id="email-input-help-text"]')).to_have_text(
+        "Enter a valid email."
+    )
+
 
 def test_login_with_invalid_credentials(page):
     login_page = LoginPage(page)
