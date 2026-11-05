@@ -10,6 +10,7 @@ pluggy==1.6.0
 pyee==13.0.1
 Pygments==2.20.0
 pytest==9.0.3
+pytest-repeat==0.7.0
 pytest-base-url==2.1.0
 pytest-playwright==0.7.2
 python-dotenv==1.2.2
